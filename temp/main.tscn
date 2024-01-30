@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp3nwimsm8yak"]
+
+[ext_resource type="Script" path="res://Camera.cs" id="1_2mglm"]
+[ext_resource type="Shader" path="res://pixelate.gdshader" id="2_ewddb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lycta"]
+shader = ExtResource("2_ewddb")
+shader_parameter/pixelate = 384.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ycxke"]
+
+[node name="Main" type="Node3D"]
+metadata/_edit_vertical_guides_ = [-137.0]
+
+[node name="Camera" type="Camera3D" parent="." node_paths=PackedStringArray("TargetNode")]
+transform = Transform3D(-0.422618, 0.689161, -0.5886, 0, -0.649448, -0.760405, -0.906308, -0.321361, 0.274468, 0, 0, 0)
+projection = 1
+size = 10.0
+script = ExtResource("1_2mglm")
+TargetNode = NodePath("../MeshInstance3D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera"]
+
+[node name="ColorRect" type="ColorRect" parent="Camera/CanvasLayer"]
+material = SubResource("ShaderMaterial_lycta")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ycxke")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
